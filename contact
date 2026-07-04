@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Book a Strategy Call — ORBIT™</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0d1726;
+  --navy-deep:#070e18;
+  --navy-mid:#13243a;
+  --teal:#009999;
+  --teal-bright:#1fd4d4;
+  --magenta:#b5297a;
+  --magenta-bright:#e0479f;
+  --gold:#c9a84c;
+  --gold-bright:#e6c876;
+  --ink:#e8eef6;
+  --ink-dim:#9fb0c4;
+  --ink-faint:#5f7186;
+  --line:rgba(159,176,196,0.14);
+  --display:'Fraunces',Georgia,serif;
+  --body:'Space Grotesk',-apple-system,sans-serif;
+  --mono:'IBM Plex Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--navy-deep);
+  color:var(--ink);
+  font-family:var(--body);
+  line-height:1.6;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  min-height:100vh;
+}
+a{color:inherit;text-decoration:none}
+.stars{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.4}
+
+/* nav */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:50;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:18px 32px;
+  background:rgba(7,14,24,.82);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line);
+}
+.brand{display:flex;align-items:baseline;gap:.55em;font-family:var(--display);font-weight:600;font-size:1.32rem;letter-spacing:.02em}
+.brand .tm{font-size:.6em;color:var(--teal-bright);transform:translateY(-.5em)}
+.brand .by{font-family:var(--body);font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-faint);font-weight:400}
+.nav-back{
+  font-family:var(--mono);font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink-dim);display:flex;align-items:center;gap:.5em;transition:color .2s;
+}
+.nav-back:hover{color:var(--teal-bright)}
+
+/* wrap */
+.wrap{max-width:1240px;margin:0 auto;padding:0 32px}
+.eyebrow{
+  font-family:var(--mono);font-size:.72rem;letter-spacing:.32em;text-transform:uppercase;
+  color:var(--gold);display:inline-flex;align-items:center;gap:.7em;
+}
+.eyebrow::before{content:"";width:28px;height:1px;background:var(--gold);opacity:.6}
+
+/* page layout */
+.page{
+  position:relative;z-index:2;
+  padding-top:110px;padding-bottom:80px;
+  display:grid;
+  grid-template-columns:1fr 1.5fr;
+  gap:70px;
+  align-items:start;
+  min-height:100vh;
+}
+
+/* left col */
+.left{padding-top:40px;position:sticky;top:110px}
+.left h1{
+  font-family:var(--display);font-weight:600;
+  font-size:clamp(2.2rem,4vw,3.4rem);line-height:1.05;letter-spacing:-.02em;
+  margin:20px 0 0;
+}
+.left h1 em{
+  font-style:italic;
+  background:linear-gradient(105deg,var(--teal-bright),var(--magenta-bright));
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+}
+.left .sub{
+  font-size:1.05rem;color:var(--ink-dim);margin-top:22px;line-height:1.7;max-width:28em;
+}
+.left .sub strong{color:var(--ink);font-weight:500}
+
+/* what to expect */
+.expect{margin-top:40px;display:flex;flex-direction:column;gap:0;border:1px solid var(--line);border-radius:4px;overflow:hidden}
+.expect-head{
+  font-family:var(--mono);font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--gold);padding:14px 20px;background:rgba(201,168,76,.06);border-bottom:1px solid var(--line);
+}
+.expect-item{
+  display:flex;gap:16px;align-items:flex-start;padding:16px 20px;border-bottom:1px solid var(--line);
+}
+.expect-item:last-child{border-bottom:0}
+.expect-num{
+  font-family:var(--mono);font-size:.65rem;color:var(--teal-bright);
+  letter-spacing:.1em;margin-top:3px;flex-shrink:0;
+}
+.expect-text{font-size:.9rem;color:var(--ink-dim);line-height:1.5}
+.expect-text strong{color:var(--ink);font-weight:500;display:block;margin-bottom:2px}
+
+/* divider */
+.divider{height:1px;background:var(--line);margin:36px 0}
+
+/* contact alt */
+.alt{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;color:var(--ink-faint)}
+.alt a{color:var(--teal-bright);transition:color .2s}
+.alt a:hover{color:var(--teal)}
+
+/* right col — calendar */
+.cal-wrap{
+  background:rgba(19,36,58,.4);
+  border:1px solid var(--line);
+  border-radius:6px;
+  overflow:hidden;
+  padding:32px;
+  margin-top:40px;
+  position:relative;
+}
+.cal-loading{
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:14px;
+  padding:60px 0;
+}
+.cal-loading p{font-family:var(--mono);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-faint)}
+.cal-spinner{width:28px;height:28px;border:2px solid var(--line);border-top-color:var(--teal-bright);border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.cal-wrap iframe{
+  width:100%;
+  border:none;
+  overflow:hidden;
+  height:750px;
+  border-radius:4px;
+  display:block;
+}
+
+/* glow */
+.glow{
+  position:fixed;top:30%;right:-10%;width:500px;height:500px;border-radius:50%;
+  background:radial-gradient(circle,rgba(0,153,153,.08),transparent 65%);
+  pointer-events:none;z-index:1;
+}
+
+/* responsive */
+@media(max-width:900px){
+  .page{grid-template-columns:1fr;gap:40px}
+  .left{position:static;padding-top:20px}
+  nav{padding:14px 22px}
+  .wrap{padding:0 22px}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important}
+}
+</style>
+</head>
+<body>
+<canvas class="stars" id="stars"></canvas>
+<div class="glow"></div>
+
+<nav>
+  <a href="index.html" class="brand">ORBIT<span class="tm">™</span> <span class="by">by The Resume Chic &amp; Co.®</span></a>
+  <a href="index.html" class="nav-back">← Back to Site</a>
+</nav>
+
+<div class="wrap">
+  <div class="page">
+
+    <!-- LEFT: framing -->
+    <div class="left">
+      <span class="eyebrow">Talent Readiness Strategy</span>
+      <h1>Let's map your<br><em>readiness gap.</em></h1>
+      <p class="sub">This is not a sales call. It is a <strong>strategy session</strong> — a focused conversation to understand where your organization is losing momentum in the talent lifecycle and where ORBIT can help you build a stronger, more prepared, more visible talent system.</p>
+
+      <div class="expect">
+        <div class="expect-head">What to expect</div>
+        <div class="expect-item">
+          <span class="expect-num">01</span>
+          <div class="expect-text"><strong>Readiness Assessment</strong>Where your organization currently stands in developing and retaining talent.</div>
+        </div>
+        <div class="expect-item">
+          <span class="expect-num">02</span>
+          <div class="expect-text"><strong>Gap Identification</strong>Where disconnected moments are costing you readiness, retention, and performance.</div>
+        </div>
+        <div class="expect-item">
+          <span class="expect-num">03</span>
+          <div class="expect-text"><strong>ORBIT Entry Point</strong>Which orbital system fits your organization's most urgent need right now.</div>
+        </div>
+        <div class="expect-item">
+          <span class="expect-num">04</span>
+          <div class="expect-text"><strong>Clear Next Step</strong>A defined path forward — no pressure, no guesswork.</div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+      <p class="alt">Prefer email first? Reach us at <a href="mailto:hello@theresumechic.com">hello@theresumechic.com</a></p>
+    </div>
+
+    <!-- RIGHT: calendar embed -->
+    <div class="cal-wrap">
+      <div class="cal-loading" id="calLoading">
+        <div class="cal-spinner"></div>
+        <p>Loading scheduler...</p>
+      </div>
+      <iframe src="https://go.automa8it.com/widget/booking/qW4XofprYQIJji6BSGoh" scrolling="no" id="qW4XofprYQIJji6BSGoh_1783135858230" onload="document.getElementById('calLoading').style.display='none'"></iframe>
+      <script src="https://go.automa8it.com/js/form_embed.js" type="text/javascript"></script>
+    </div>
+
+  </div>
+</div>
+
+<script>
+var cv=document.getElementById('stars'),ctx=cv.getContext('2d');var stars=[];
+function initStars(){
+  cv.width=innerWidth;cv.height=innerHeight;
+  stars=[];
+  var count=Math.min(120,Math.floor(innerWidth/12));
+  for(var i=0;i<count;i++){
+    stars.push({x:Math.random()*cv.width,y:Math.random()*cv.height,r:Math.random()*1.1+.2,a:Math.random(),s:Math.random()*.01+.002});
+  }
+}
+function drawStars(){
+  ctx.clearRect(0,0,cv.width,cv.height);
+  for(var i=0;i<stars.length;i++){
+    var st=stars[i];
+    st.a+=st.s;var al=.2+Math.abs(Math.sin(st.a))*.55;
+    ctx.beginPath();ctx.arc(st.x,st.y,st.r,0,7);
+    ctx.fillStyle='rgba(180,210,240,'+al+')';ctx.fill();
+  }
+  requestAnimationFrame(drawStars);
+}
+initStars();drawStars();window.addEventListener('resize',initStars);
+</script>
+</body>
+</html>
